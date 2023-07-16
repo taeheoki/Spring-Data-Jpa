@@ -12,6 +12,7 @@ import study.datajpa.entity.Team;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -163,5 +164,33 @@ class MemberRepositoryTest {
         for (Member member : result) {
             System.out.println("member = " + member);
         }
+    }
+
+    @Test
+    public void returnType() {
+        Member m1 = new Member("AAA", 10);
+        Member m2 = new Member("BBB", 20);
+        memberRepository.save(m1);
+        memberRepository.save(m2);
+
+//        List<Member> aaa = memberRepository.findListByUsername("AAA");
+//        Member findMember = memberRepository.findMemberByUsername("AAA");
+//        Member findMember = memberRepository.findOptionalByUsername("AAA").get();
+//        System.out.println("findMember = " + findMember);
+
+        List<Member> result = memberRepository.findListByUsername("reigj");
+        System.out.println("result = " + result.size());
+
+        Member findMember = memberRepository.findMemberByUsername("asdfasdf");
+        System.out.println("findMember = " + findMember);
+
+        Optional<Member> findMemberOptional = memberRepository.findOptionalByUsername("asdasdasd");
+        System.out.println("findMemberOptional = " + findMemberOptional);
+
+//        Member m1 = new Member("AAA", 10);
+//        Member m2 = new Member("AAA", 20);
+        /**
+         * 단건 조회를 하려하는데 값이 두개 이상 나오게 도리 경우 예외가 터진다.
+         */
     }
 }
