@@ -238,6 +238,10 @@ class MemberRepositoryTest {
         // when
         int resultCount = memberRepository.bulkAgePlus(20);
 
+        List<Member> result = memberRepository.findByUsername("member5");
+        Member member5 = result.get(0);
+        System.out.println("member5 = " + member5);
+
         // then
         assertThat(resultCount).isEqualTo(3);
     }
@@ -258,8 +262,8 @@ class MemberRepositoryTest {
         memberRepository.save(member2);
         memberRepository.save(member3);
 
-        em.flush();
-        em.clear();
+//        em.flush();
+//        em.clear();
 
         // when
         List<Member> members = memberRepository.findAll();
@@ -270,5 +274,31 @@ class MemberRepositoryTest {
             System.out.println("member.teamClass = " + member.getTeam().getClass());
             System.out.println("member.team = " + member.getTeam().getName());
         }
+    }
+
+    @Test
+    public void queryHint() {
+        // given
+        Member member1 = memberRepository.save(new Member("member1", 10));
+        em.flush();
+        em.clear();
+
+        // when
+//        Member findMember = memberRepository.findById(member1.getId()).get();
+        Member findMember = memberRepository.findReadOnlyByUsername("member1");
+        findMember.setUsername("member2");
+
+        em.flush();
+    }
+
+    @Test
+    public void lock() {
+        // given
+        Member member1 = memberRepository.save(new Member("member1", 10));
+        em.flush();
+        em.clear();
+
+        // when
+        List<Member> result = memberRepository.findLockByUsername("member1");
     }
 }
