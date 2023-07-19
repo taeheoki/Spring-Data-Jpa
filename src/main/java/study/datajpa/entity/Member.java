@@ -1,6 +1,7 @@
 package study.datajpa.entity;
 
 import lombok.*;
+import study.datajpa.repository.BaseEntity;
 
 import javax.persistence.*;
 
@@ -16,7 +17,7 @@ import javax.persistence.*;
 @NamedEntityGraph(
         name = "Member.all", attributeNodes = @NamedAttributeNode("team")
 )
-public class Member {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue
