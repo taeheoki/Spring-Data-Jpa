@@ -1,7 +1,6 @@
 package study.datajpa.entity;
 
 import lombok.*;
-import study.datajpa.repository.BaseEntity;
 
 import javax.persistence.*;
 

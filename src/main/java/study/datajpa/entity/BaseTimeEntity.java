@@ -1,4 +1,4 @@
-package study.datajpa.repository;
+package study.datajpa.entity;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
